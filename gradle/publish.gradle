@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-apply plugin: 'maven'
+apply plugin: 'maven-publish'
 apply plugin: 'signing'
 
 version = VERSION_NAME
@@ -42,69 +42,56 @@ def getRepositoryPassword() {
     return hasProperty('SONATYPE_NEXUS_PASSWORD') ? SONATYPE_NEXUS_PASSWORD : ""
 }
 
-def configurePom(pom) {
-    pom.groupId = GROUP
-    pom.artifactId = POM_ARTIFACT_ID
-    pom.version = VERSION_NAME
-
-    pom.project {
-        name POM_NAME
-        packaging POM_PACKAGING
-        description POM_DESCRIPTION
-        url POM_URL
-
-        scm {
-            url POM_SCM_URL
-            connection POM_SCM_CONNECTION
-            developerConnection POM_SCM_DEV_CONNECTION
-        }
-
-        licenses {
-            license {
-                name POM_LICENCE_NAME
-                url POM_LICENCE_URL
-                distribution POM_LICENCE_DIST
-            }
-        }
-
-        developers {
-            developer {
-                id POM_DEVELOPER_ID
-                name POM_DEVELOPER_NAME
-            }
-        }
-    }
-}
 
 afterEvaluate { project ->
-    uploadArchives {
+    publishing {
+        publications {
+            release(MavenPublication) {
+                groupId GROUP
+                artifactId POM_ARTIFACT_ID
+                version VERSION_NAME
+
+                pom {
+                    name = POM_NAME
+                    packaging = POM_PACKAGING
+                    description = POM_DESCRIPTION
+                    url = POM_URL
+
+                    scm {
+                        url = POM_SCM_URL
+                        connection = POM_SCM_CONNECTION
+                        developerConnection = POM_SCM_DEV_CONNECTION
+                    }
+
+                    licenses {
+                        license {
+                            name = POM_LICENCE_NAME
+                            url = POM_LICENCE_URL
+                            distribution = POM_LICENCE_DIST
+                        }
+                    }
+
+                    developers {
+                        developer {
+                            id = POM_DEVELOPER_ID
+                            name = POM_DEVELOPER_NAME
+                        }
+                    }
+                }
+            }
+        }
+
         repositories {
-            mavenDeployer {
-                beforeDeployment { MavenDeployment deployment -> signing.signPom(deployment) }
-
-                repository(url: getReleaseRepositoryUrl()) {
-                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
+            maven {
+                url = isReleaseBuild() ? getReleaseRepositoryUrl() : getSnapshotRepositoryUrl()
+                credentials {
+                    username getRepositoryUsername()
+                    password getRepositoryPassword()
                 }
-                snapshotRepository(url: getSnapshotRepositoryUrl()) {
-                    authentication(userName: getRepositoryUsername(), password: getRepositoryPassword())
-                }
-
-                configurePom(pom)
             }
         }
     }
 
-    tasks.create("installLocally", Upload) {
-        configuration = configurations.archives
-
-        repositories {
-            mavenDeployer {
-                repository(url: "file://${rootProject.buildDir}/localMaven")
-
-                configurePom(pom)
-            }
-        }
-    }
 
     signing {
         required { isReleaseBuild() && gradle.taskGraph.hasTask("uploadArchives") }
@@ -113,13 +100,6 @@ afterEvaluate { project ->
 
     if (project.getPlugins().hasPlugin('com.android.application') ||
             project.getPlugins().hasPlugin('com.android.library')) {
-        task install(type: Upload, dependsOn: assemble) {
-            repositories.mavenInstaller {
-                configuration = configurations.archives
-
-                configurePom(pom)
-            }
-        }
 
         task androidJavadocs(type: Javadoc) {
             source = android.sourceSets.main.java.source
@@ -136,11 +116,6 @@ afterEvaluate { project ->
             from android.sourceSets.main.java.source
         }
     } else {
-        install {
-            repositories.mavenInstaller {
-                configurePom(pom)
-            }
-        }
 
         task sourcesJar(type: Jar, dependsOn:classes) {
             classifier = 'sources'
