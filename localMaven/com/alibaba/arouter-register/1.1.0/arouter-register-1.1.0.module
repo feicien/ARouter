@@ -1,0 +1,110 @@
+{
+  "formatVersion": "1.1",
+  "component": {
+    "group": "com.alibaba",
+    "module": "arouter-register",
+    "version": "1.1.0",
+    "attributes": {
+      "org.gradle.status": "release"
+    }
+  },
+  "createdBy": {
+    "gradle": {
+      "version": "8.13"
+    }
+  },
+  "variants": [
+    {
+      "name": "apiElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-api",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.0.21"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "arouter-register-1.1.0.jar",
+          "url": "arouter-register-1.1.0.jar",
+          "size": 18100,
+          "sha512": "b8606d2397f8ae8c67e031e042a1df9515fdb35d1c3264c2a39be14552183141e6567cdc7cebc703bebdab8e8089107a2a00954bb34fb3ec87307d85abac675a",
+          "sha256": "0c9d419be7d956c226bbadfb73908f8179e65bc10c1087e7e58fc8a8eb4f05b0",
+          "sha1": "13930c0c1fe36c379ea4b215194ec31a8963c97b",
+          "md5": "b164d4be41906fd7cf7b2487cdc54ada"
+        }
+      ]
+    },
+    {
+      "name": "runtimeElements",
+      "attributes": {
+        "org.gradle.category": "library",
+        "org.gradle.dependency.bundling": "external",
+        "org.gradle.jvm.environment": "standard-jvm",
+        "org.gradle.jvm.version": 17,
+        "org.gradle.libraryelements": "jar",
+        "org.gradle.usage": "java-runtime",
+        "org.jetbrains.kotlin.platform.type": "jvm"
+      },
+      "dependencies": [
+        {
+          "group": "commons-io",
+          "module": "commons-io",
+          "version": {
+            "requires": "2.11.0"
+          }
+        },
+        {
+          "group": "commons-codec",
+          "module": "commons-codec",
+          "version": {
+            "requires": "1.15"
+          }
+        },
+        {
+          "group": "org.ow2.asm",
+          "module": "asm",
+          "version": {
+            "requires": "9.2"
+          }
+        },
+        {
+          "group": "org.ow2.asm",
+          "module": "asm-commons",
+          "version": {
+            "requires": "9.2"
+          }
+        },
+        {
+          "group": "org.jetbrains.kotlin",
+          "module": "kotlin-stdlib",
+          "version": {
+            "requires": "2.0.21"
+          }
+        }
+      ],
+      "files": [
+        {
+          "name": "arouter-register-1.1.0.jar",
+          "url": "arouter-register-1.1.0.jar",
+          "size": 18100,
+          "sha512": "b8606d2397f8ae8c67e031e042a1df9515fdb35d1c3264c2a39be14552183141e6567cdc7cebc703bebdab8e8089107a2a00954bb34fb3ec87307d85abac675a",
+          "sha256": "0c9d419be7d956c226bbadfb73908f8179e65bc10c1087e7e58fc8a8eb4f05b0",
+          "sha1": "13930c0c1fe36c379ea4b215194ec31a8963c97b",
+          "md5": "b164d4be41906fd7cf7b2487cdc54ada"
+        }
+      ]
+    }
+  ]
+}

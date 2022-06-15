@@ -40,9 +40,11 @@ android {
     lint {
         abortOnError false
     }
+    namespace 'com.alibaba.android.arouter.demo'
 }
 
 dependencies {
+    implementation project(':arouter-annotation')
     implementation project(':arouter-api')
 
     // 开发中依赖对方的 service 包

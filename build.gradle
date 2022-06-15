@@ -1,16 +1,18 @@
 buildscript {
-    ext.kotlin_version = '1.7.0'
-    ext.arouter_register_version = '1.0.2'
+    ext.kotlin_version = '2.0.21'
+    ext.arouter_register_version = '1.1.0'
 
     repositories {
+        maven {
+            name 'ARouterLocalMaven'
+            url "file://${rootProject.projectDir}/localMaven"
+        }
         mavenCentral()
         google()
     }
 
     dependencies {
-        classpath 'com.android.tools.build:gradle:7.2.1'
-        classpath 'com.neenbedankt.gradle.plugins:android-apt:1.8'
-        classpath 'com.github.dcendents:android-maven-gradle-plugin:2.1'
+        classpath 'com.android.tools.build:gradle:8.13.2'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         classpath "com.alibaba:arouter-register:$arouter_register_version"
     }
@@ -18,7 +20,10 @@ buildscript {
 
 allprojects {
     repositories {
-        mavenLocal()
+        maven {
+            name 'ARouterLocalMaven'
+            url "file://${rootProject.projectDir}/localMaven"
+        }
         mavenCentral()
         google()
     }

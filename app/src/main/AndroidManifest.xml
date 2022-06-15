@@ -5,7 +5,7 @@
     <application
         android:allowBackup="false"
         android:icon="@drawable/ic_launcher"
-        android:label="ARouter demo"
+        android:label="@string/arouter_demo"
         android:theme="@style/Base.Theme.AppCompat">
         <activity android:name=".SchemeFilterActivity"
             android:exported="true">

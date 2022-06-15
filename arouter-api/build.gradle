@@ -23,11 +23,12 @@ android {
     lint {
         abortOnError false
     }
+    namespace 'com.alibaba.android.arouter'
 }
 
 dependencies {
-    annotationProcessor 'com.alibaba:arouter-compiler:1.5.2'
-    api 'com.alibaba:arouter-annotation:1.0.6'
+    annotationProcessor 'com.alibaba:arouter-compiler:1.6.0'
+    implementation 'com.alibaba:arouter-annotation:1.1.0'
     implementation 'androidx.fragment:fragment:1.4.1'
 }
 

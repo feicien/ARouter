@@ -32,4 +32,5 @@ android {
     lint {
         abortOnError false
     }
+    namespace 'com.alibaba.android.arouter.demo.module1'
 }
